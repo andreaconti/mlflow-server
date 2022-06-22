@@ -5,7 +5,8 @@ services:
   server:
     build: ./mlflow
     ports:
-      - "0.0.0.0:6006:5000"
+      - "127.0.0.1:6000:5000"
+    restart: always
     environment:
       - STORE_URI=mysql://mlflow:mlflow@backend-store:3306/mlflow
     links:
@@ -17,6 +18,7 @@ services:
   # MySQL database
   backend-store:
     image: mysql:8.0.29-debian
+    restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=mlflow-server-pwd
       - MYSQL_USER=mlflow
