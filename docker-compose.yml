@@ -26,6 +26,8 @@ services:
       - MYSQL_DATABASE=mlflow
     volumes:
       - db:/var/lib/mysql
+    cap_add:
+      - SYS_NICE   # CAP_SYS_NICE
 
 volumes:
   db:
