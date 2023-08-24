@@ -15,6 +15,7 @@ services:
     volumes:
       - artifacts:/artifacts
     command: >-
+      server
       --host 0.0.0.0
       --backend-store-uri mysql://mlflow:mlflow@backend-store:3306/mlflow
       --serve-artifacts --artifacts-destination /artifacts

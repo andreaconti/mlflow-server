@@ -9,4 +9,4 @@ docker run --rm \
     --volume "$VOLUME_NAME:$TMP_MOUNT_FROM" \
     --volume $(realpath "$VOLUME_BACKUP_PATH" | xargs dirname):"$TMP_MOUNT_TO" \
     ubuntu \
-    rm -rf "$TMP_MOUNT_FROM/*" \&\& tar xvf "$TMP_MOUNT_TO/$(basename $VOLUME_BACKUP_PATH)" -C "$TMP_MOUNT_FROM" --strip 1
+    bash -c "rm -rf $TMP_MOUNT_FROM/* && tar xvf \"$TMP_MOUNT_TO/$(basename $VOLUME_BACKUP_PATH)\" -C \"$TMP_MOUNT_FROM\" --strip 1"

@@ -4,4 +4,4 @@ RUN apt update && apt install -y build-essential default-libmysqlclient-dev pkg-
 RUN pip install --upgrade pip
 RUN pip install mlflow mysqlclient
 
-ENTRYPOINT ["mlflow", "server"]
+ENTRYPOINT ["mlflow"]
