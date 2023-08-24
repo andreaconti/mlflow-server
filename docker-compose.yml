@@ -4,8 +4,9 @@ services:
   # main mlflow server
   server:
     build: ./mlflow
+    container_name: mlflow-server
     ports:
-      - "127.0.0.1:6000:5000"
+      - "127.0.0.1:9999:5000"
     restart: always
     environment:
       - STORE_URI=mysql://mlflow:mlflow@backend-store:3306/mlflow
@@ -13,11 +14,15 @@ services:
       - backend-store
     volumes:
       - artifacts:/artifacts
-    command: --host 0.0.0.0 --backend-store-uri mysql://mlflow:mlflow@backend-store:3306/mlflow --serve-artifacts --artifacts-destination /artifacts
+    command: >-
+      --host 0.0.0.0
+      --backend-store-uri mysql://mlflow:mlflow@backend-store:3306/mlflow
+      --serve-artifacts --artifacts-destination /artifacts
   
   # MySQL database
   backend-store:
     image: mysql:8.0.29-debian
+    container_name: mlflow-backend-db
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=mlflow-server-pwd

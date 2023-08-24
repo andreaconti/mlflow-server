@@ -6,8 +6,7 @@ TMP_MOUNT_FROM="/volume_data_from"
 TMP_MOUNT_TO="/volume_data_to"
 
 docker run --rm \
-    --volume $VOLUME_NAME:$TMP_MOUNT_FROM \
-    --volume $(realpath $VOLUME_BACKUP_PATH | xargs dirname):$TMP_MOUNT_TO \
+    --volume "$VOLUME_NAME:$TMP_MOUNT_FROM" \
+    --volume $(realpath "$VOLUME_BACKUP_PATH" | xargs dirname):"$TMP_MOUNT_TO" \
     ubuntu \
-    tar xvf $TMP_MOUNT_TO/$(basename $VOLUME_BACKUP_PATH) -C $TMP_MOUNT_FROM --strip 1
-
+    rm -rf "$TMP_MOUNT_FROM/*" \&\& tar xvf "$TMP_MOUNT_TO/$(basename $VOLUME_BACKUP_PATH)" -C "$TMP_MOUNT_FROM" --strip 1
